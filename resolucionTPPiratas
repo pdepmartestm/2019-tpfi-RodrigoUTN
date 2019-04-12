@@ -1,0 +1,47 @@
+---cantDeTesoros [("juan",3), ("pedro",4), ("roman", 5) ]
+jackSparrow = [( "brujula", 1000 ), ("frasco de arena", 0)]
+davisJones = [("caja musical", 1)]
+anneBonny = [("Doblones", 100), ("frasco de arena", 1)]
+
+
+type Pirata  = [(NombreTesoro, Valor)]
+type NombreTesoro = String
+type Valor = Int
+
+type Tesoro = (NombreTesoro, Valor)
+
+--1)
+cantDeTesoros pirata = length pirata
+
+--2)
+
+retornarValor (nombreTesoro ,valor) = valor
+retornarValores pirata = map retornarValor pirata
+valorTotal pirata = sum (retornarValores pirata)
+
+esAfortunado pirata = valorTotal pirata > 10000
+
+--3)
+--	Si dos piratas tienen un mismo tesoro, pero de valor diferente
+retornarTesoro (nombreTesoro,_) = nombreTesoro
+--mismoTesoro pirata1 pirata2 = tieneTesoro pirata1 == tieneTesoro pirata2 && distintoValor tesoro valor pirata1 pirata2
+
+--tieneTesoro pirata = retornarTesoro pirata
+
+--4)	El valor del tesoro más valioso de un pirata
+
+tesoroValioso pirata = maximum (map retornarValor pirata)
+
+-- 5) Como queda el pirata luego de adquirir un nuevo tesoro
+
+adquirirTesoro (nombreTesoro, valor) pirata = pirata ++ [(nombreTesoro, valor)]
+
+-- 6) Como queda el pirata luego de perder todos los tesoros valiosos, que son los que tienen un valor mayor a 100.
+
+esMayorA pirata = retornarValor pirata > 100
+
+perderTesorosValosos pirata = filter (not.esMayorA) pirata
+
+--7)●	Como queda el pirata luego de perder todos los tesoros con un nombre dado.
+
+perderTesoro tesoro pirata = filter (/= tesoro) (map retornarTesoro pirata) 
